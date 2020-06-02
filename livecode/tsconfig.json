@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "built",
+    "target": "es2017",
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "sourceMap": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": ["lib", "framework", "specs"]
+}
