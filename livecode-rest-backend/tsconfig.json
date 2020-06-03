@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "built",
+    "target": "ES2017"
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "lib",
+    "framework",
+    "specs"
+  ]
+}
