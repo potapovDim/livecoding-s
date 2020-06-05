@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "module": "commonjs",
+    "target": "es2017",
+    "types": [
+      "node",
+      "webdriverio",
+      "@wdio/mocha-framework",
+      "@wdio/selenium-standalone-service"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "lib",
+    "framework",
+    "specs"
+  ]
+}
