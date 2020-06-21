@@ -10,8 +10,8 @@ class MainPage {
 
   public constructor() {
     this.root = _$('#main_page')
-    this.headerNavigateToRegisterButton = this.root._$('.user_buttons button:nth-child(2)');
-    this.headerNavigateToLoginButton = this.root._$('.user_buttons button:nth-child(1)');
+    this.headerNavigateToLoginButton = this.root._$('.main_header')._$('.user_buttons')._$('button');
+    this.headerNavigateToRegisterButton = this.root._$('.main_header')._$('.user_buttons button:nth-child(2)');
     this.username = this.root._$$('.login_form input').get(0);
     this.password = this.root._$$('.login_form input').get(1);
     this.subminLogin = this.root._$('.login_form button');
