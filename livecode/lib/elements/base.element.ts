@@ -30,7 +30,7 @@ class BaseElement {
 
   async sendKeys(keys: string) {
     await this.waitVisible();
-    await this.sendKeys(keys)
+    await this.root.sendKeys(keys)
   }
 
   async isDisplay() {
