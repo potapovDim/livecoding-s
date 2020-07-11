@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "sourceMap": true,
+    "module": "commonjs",
+    "outDir": "built",
+    "experimentalDecorators": true,
+    "types": [
+      "@types/puppeteer",
+      "@types/mocha",
+      "@types/chai",
+    ]
+  },
+  "include": [
+    "lib/**/*.ts",
+    "specs/**/*.ts",
+    "framework/**/*.ts"
+  ]
+}
