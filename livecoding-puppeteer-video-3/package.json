@@ -1,0 +1,30 @@
+{
+  "name": "livecoding-puppeteer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --require ts-node/register ./specs/**/*.spec.ts --timeout 25000",
+    "test:allure": "REPORTER=allure mocha --require ts-node/register ./specs/**/*.spec.ts --timeout 25000 -R mocha-allure2-reporter",
+    "test:tech:console": "TECH_INFO=1 mocha --require ts-node/register ./specs/**/*.spec.ts --timeout 25000",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^14.0.22",
+    "@types/puppeteer": "^3.0.1",
+    "chai": "^4.2.0",
+    "chalk": "^4.1.0",
+    "puppeteer": "^5.0.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6"
+  },
+  "devDependencies": {
+    "mocha": "^8.0.1",
+    "mocha-allure2-reporter": "0.0.3"
+  }
+}
