@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es2019",
+		"sourceMap": true,
+		"outDir": "built",
+		"declaration": true,
+		"experimentalDecorators": true
+	},
+	"include": [
+		"lib"
+	],
+	"exclude": [
+		"node_modules",
+		"built",
+		"specs",
+		"example"
+	]
+}
