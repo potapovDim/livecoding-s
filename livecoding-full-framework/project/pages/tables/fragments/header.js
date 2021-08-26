@@ -1,5 +1,5 @@
 // @ts-check
-const {BaseFragment} = require('../../../../lib')
+const {BaseFragment, Text} = require('../../../../lib')
 
 /**
  * @typedef {object} HeaderCommonAction
@@ -14,7 +14,7 @@ const {BaseFragment} = require('../../../../lib')
 class HeaderFragment extends BaseFragment {
   constructor(root, name) {
     super(root, name)
-    this.greetingMessage = this.root.$('h3')
+    this.greetingMessage = this.init('h3', 'Greeting message', Text);
   }
 }
 

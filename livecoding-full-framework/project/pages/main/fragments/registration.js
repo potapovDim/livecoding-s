@@ -1,5 +1,5 @@
 // @ts-check
-const {BaseFragment} = require('../../../../lib');
+const {BaseFragment, Input, Button} = require('../../../../lib');
 
 /**
  * @typedef {object} RegistrationCommonAction
@@ -21,11 +21,12 @@ const {BaseFragment} = require('../../../../lib');
 class RegistrationFragment extends BaseFragment {
   constructor(root, name) {
     super(root, name)
-    this.username = this.root.$(`input[placeholder="Ім'я користувача"]`);
-    this.personalname = this.root.$(`input[placeholder="Ім'я"]`);
-    this.email = this.root.$(`input[placeholder="Імейл"]`);
-    this.password = this.root.$(`input[placeholder="пароль"]`);
-    this.sighUp = this.root.$('.btn.btn-primary');
+    this.username = this.init(`input[placeholder="Ім'я користувача"]`, 'Username field', Input);
+    this.personalname = this.init(`input[placeholder="Ім'я"]`, 'Personal name field', Input);
+    this.email = this.init(`input[placeholder="Імейл"]`, 'Email field', Input);
+    this.password = this.init(`input[placeholder="пароль"]`, 'Password field', Input);
+
+    this.sighUp = this.init('.btn.btn-primary', 'Sign Up button', Button);
   }
 }
 

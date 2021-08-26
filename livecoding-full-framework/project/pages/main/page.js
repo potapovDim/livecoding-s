@@ -9,6 +9,7 @@ const {RegistrationFragment} = require('./fragments/registration');
  *
  * @typedef {import('./fragments/login').LoginSendKeysAction} LoginSendKeysAction
  * @typedef {import('./fragments/login').LoginCommonAction} LoginCommonAction
+ * @typedef {import('./fragments/login').LoginGetResAction} LoginGetResAction
  *
  * @typedef {import('./fragments/registration').RegistrationSendKeysAction} RegistrationSendKeysAction
  * @typedef {import('./fragments/registration').RegistrationCommonAction} RegistrationCommonAction
@@ -25,6 +26,13 @@ const {RegistrationFragment} = require('./fragments/registration');
  *  register?: RegistrationCommonAction;
  *  header?: HeaderCommonAction;
  * } ) =>  Promise<void>} click click method
+ * @property {(data: {
+ *  login?: LoginCommonAction;
+ *  register?: RegistrationCommonAction;
+ *  header?: HeaderCommonAction;
+ * } ) =>  Promise<{
+ *  login?: LoginGetResAction;
+ * }>} get get method
  */
 
 class MainPage extends BasePage {

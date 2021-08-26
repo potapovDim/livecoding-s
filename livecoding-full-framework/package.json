@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha $(find specs -name '*.spec.*') --file ./mocha.hooks.js --timeout 500000",
+    "test:allure": "mocha $(find specs -name '*.spec.*') --file ./mocha.hooks.js --timeout 500000 -R allure-mocha --reporter-options '{}'",
     "driver:update": "selenium-standalone install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "allure-mocha": "^2.0.0-beta.11",
     "assertior": "0.0.26",
     "mocha": "^9.1.0",
     "promod": "0.0.16",
