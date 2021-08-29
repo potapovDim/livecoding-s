@@ -13,6 +13,11 @@ async function checkThatUserLoggedInSystem(username) {
   expect(greetingMessage).stringIncludesSubstring(username);
 }
 
+async function navigateToAdmin() {
+  await tables.click({header: {toAdmin: null}});
+}
+
 module.exports = {
   checkThatUserLoggedInSystem,
+  navigateToAdmin,
 }

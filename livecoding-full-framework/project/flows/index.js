@@ -1,12 +1,14 @@
 // @ts-check
+const {prettifyCamelCase} = require('sat-utils');
 const mainFlows = require('./main');
 const tablesFlows = require('./tables');
-const {prettifyCamelCase} = require('sat-utils');
-const {step} = require('../../lib')
+const adminFlows = require('./admin');
+const {step} = require('../../lib');
 
 const initFlows = {
   ...mainFlows,
-  ...tablesFlows
+  ...tablesFlows,
+  ...adminFlows
 }
 
 Object.keys(initFlows).forEach((flowFnName) => {

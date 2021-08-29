@@ -1,4 +1,5 @@
 // @ts-check
+const {Collection} = require('./collection');
 class BaseFragment {
   /**
    * @param {import('promod').PromodSeleniumElementType} root fragment root
@@ -18,7 +19,9 @@ class BaseFragment {
    */
   init(selector, name, child, ...rest) {
     // TODO add technical logging
-    return new child(this.root.$(selector), name, ...rest);
+    return child === Collection
+      ? new child(this.root.$$(selector), name, ...rest)
+      : new child(this.root.$(selector), name, ...rest);
   }
 
   async sendKeys(data) {

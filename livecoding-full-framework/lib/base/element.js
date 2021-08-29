@@ -18,7 +18,7 @@ class BaseElement {
   }
 
   async get() {
-    return this.root.getText();
+    return (await this.root.getText()).trim();
   }
 }
 
