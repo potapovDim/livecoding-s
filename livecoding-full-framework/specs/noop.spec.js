@@ -22,13 +22,14 @@ describe('Login form', () => {
     await client.get('http://localhost:4000/')
     await I.loginToSystem(adminData)
     await I.navigateToAdmin();
-    // await I.createNewUserOnAdminPage({
-    //   username: 'test2',
-    //   personalname: 'test2',
-    //   email: 'test2',
-    //   password: 'test2'
-    // })
+    await client.switchToTab({title: 'Адмінська сторінка'});
+    await I.createNewUserOnAdminPage({
+      username: 'test2',
+      personalname: 'test2',
+      email: 'test2',
+      password: 'test2'
+    })
     await I.checkThatUserInUsersList('test2');
-    await client.sleep(15000);
+    await client.returnToInitialTab();
   })
 })

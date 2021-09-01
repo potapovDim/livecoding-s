@@ -1,4 +1,6 @@
 // @ts-check
+const {decorateBase} = require('../reporter/')
+
 class BaseElement {
   /**
    * @param {import('promod').PromodSeleniumElementType} root fragment root
@@ -21,6 +23,10 @@ class BaseElement {
     return (await this.root.getText()).trim();
   }
 }
+
+decorateBase(BaseElement, 'get', (name) => `${name} execute get`);
+decorateBase(BaseElement, 'click', (name) => `${name} execute click`);
+decorateBase(BaseElement, 'sendKeys', (name) => `${name} execute sendKeys`);
 
 module.exports = {
   BaseElement

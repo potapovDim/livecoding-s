@@ -5,7 +5,8 @@ function stepAllure(stepName, action, ...args) {
   const {allure} = require('allure-mocha/runtime');
   return allure.step(stepName, async () => {
     if(args.length) {
-      allure.attachment(`${stepName} entry args`, JSON.stringify(args, null, '\t'), ContentType.JSON)
+      const toLog = args.length === 1 ? args[0] : args
+      allure.attachment(`${stepName} entry args`, JSON.stringify(toLog, null, '\t'), ContentType.JSON)
     }
     const result = await action();
     if(result) {

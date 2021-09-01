@@ -1,6 +1,7 @@
 // @ts-check
 const {seleniumWD} = require('promod');
 const {$} = seleniumWD;
+const {decorateBase} = require('../reporter/')
 
 class BasePage {
   /**
@@ -47,6 +48,10 @@ class BasePage {
     return getData;
   }
 }
+
+decorateBase(BasePage, 'get', (name) => `${name} execute get`);
+decorateBase(BasePage, 'click', (name) => `${name} execute click`);
+decorateBase(BasePage, 'sendKeys', (name) => `${name} execute sendKeys`);
 
 module.exports = {
   BasePage

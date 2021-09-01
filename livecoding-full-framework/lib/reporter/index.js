@@ -1,6 +1,9 @@
 // @ts-check
-const {stepAllure} = require('./allure')
-const {stepConsole} = require('./console')
+const {stepAllure} = require('./allure');
+const {stepConsole} = require('./console');
+
+const {LOG_ALL} = process.env;
+
 
 /**
  * @param {string} stepName stepName
@@ -16,6 +19,34 @@ function step(stepName, action, ...restArgs) {
   return stepConsole(stepName, action, ...restArgs)
 }
 
+
+/**
+ *
+ * @param {new (...args: any[]) => any} classToDecorate classToDecorate
+ * @param {string} methodName
+ * @param {(...args: any[]) => string} messageFn
+ */
+function decorateBase(classToDecorate, methodName, messageFn) {
+  if(!LOG_ALL) {
+    return;
+  }
+
+  const methodDescriptor = Object.getOwnPropertyDescriptor(classToDecorate.prototype, methodName)
+  const originalMethodImplementation = methodDescriptor.value;
+
+  const decorated = async function(...args) {
+    const originalCallable = originalMethodImplementation.bind(this, ...args)
+    const prettyName = messageFn(this.name);
+    return step(prettyName, originalCallable, ...args);
+  }
+
+  Object.defineProperty(decorated, 'name', {value: methodName})
+  methodDescriptor.value = decorated;
+
+  Object.defineProperty(classToDecorate.prototype, methodName, methodDescriptor)
+}
+
 module.exports = {
-  step
+  step,
+  decorateBase
 }
