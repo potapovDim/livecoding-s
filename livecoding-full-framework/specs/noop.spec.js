@@ -5,10 +5,10 @@ const {client, I} = provider;
 
 describe('Login form', () => {
   const adminData = {password: 'admin', username: 'admin'};
-  it('[P] Success login', async () => {
+  it.only('[P] Success login', async () => {
     await client.get('http://localhost:4000/')
     await I.loginToSystem(adminData)
-    await I.checkThatUserLoggedInSystem(adminData.username);
+    await I.checkThatUserLoggedInSystem(adminData.username, true);
   })
 
   it('[N] Failed login', async () => {
@@ -18,7 +18,7 @@ describe('Login form', () => {
     await I.checkThatAfterFailedLoginFieldsAreFilled(userData);
   })
 
-  it.only('[P] Admin creates new user', async () => {
+  it('[P] Admin creates new user', async () => {
     await client.get('http://localhost:4000/')
     await I.loginToSystem(adminData)
     await I.navigateToAdmin();

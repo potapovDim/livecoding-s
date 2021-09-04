@@ -22,11 +22,16 @@ class BaseElement {
   async get() {
     return (await this.root.getText()).trim();
   }
+
+  async isDisplayed() {
+    return this.root.isDisplayed()
+  }
 }
 
 decorateBase(BaseElement, 'get', (name) => `${name} execute get`);
 decorateBase(BaseElement, 'click', (name) => `${name} execute click`);
 decorateBase(BaseElement, 'sendKeys', (name) => `${name} execute sendKeys`);
+decorateBase(BaseElement, 'isDisplayed', (name) => `${name} execute isDisplayed`);
 
 module.exports = {
   BaseElement

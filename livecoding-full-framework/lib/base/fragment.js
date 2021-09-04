@@ -1,4 +1,5 @@
 // @ts-check
+const {isNull} = require('sat-utils');
 const {Collection} = require('./collection');
 class BaseFragment {
   /**
@@ -32,7 +33,6 @@ class BaseFragment {
   }
 
   async click(data) {
-
     const dataKeys = Object.keys(data)
     for(const key of dataKeys) {
       await this[key].click();
@@ -45,6 +45,19 @@ class BaseFragment {
     for(const key of dataKeys) {
       // TODO add technical logging
       getData[key] = await this[key].get(data[key]);
+    }
+    return getData;
+  }
+
+  async isDisplayed(data) {
+    if(isNull(data)) {
+      return this.root.isDisplayed();
+    }
+    const dataKeys = Object.keys(data)
+    const getData = {...data};
+    for(const key of dataKeys) {
+      // TODO add technical logging
+      getData[key] = await this[key].isDisplayed(data[key]);
     }
     return getData;
   }

@@ -1,7 +1,9 @@
 // @ts-check
+const {isObject, isPrimitive, isString, waitForCondition} = require('sat-utils');
 const {seleniumWD} = require('promod');
-const {$} = seleniumWD;
 const {decorateBase} = require('../reporter/')
+const {isEqual} = require('./utils');
+const {$} = seleniumWD;
 
 class BasePage {
   /**
@@ -47,11 +49,44 @@ class BasePage {
     }
     return getData;
   }
+
+  async isDisplayed(data) {
+    const dataKeys = Object.keys(data)
+    const getData = {...data};
+    for(const key of dataKeys) {
+      getData[key] = await this[key].isDisplayed(data[key]);
+    }
+    return getData;
+  }
+
+  async waitForPageState(data) {
+    function checkThatStringsInData(dataObj) {
+      for(const key of Object.keys(dataObj)) {
+        if(isObject(dataObj[key])) {
+          const result = checkThatStringsInData(dataObj[key])
+          if(result) {
+            return true;
+          }
+        } else if(isPrimitive(dataObj[key]) && isString(dataObj[key])) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    const conditionToCall = checkThatStringsInData(data) ? 'get' : 'isDisplayed';
+
+    await waitForCondition(async () => {
+      const thisCallResult = await this[conditionToCall]({...data});
+      return isEqual(thisCallResult, data)
+    }, {timeout: 15_000, message: `${this.name} should have condition ${JSON.stringify(data)}`});
+  }
 }
 
 decorateBase(BasePage, 'get', (name) => `${name} execute get`);
 decorateBase(BasePage, 'click', (name) => `${name} execute click`);
 decorateBase(BasePage, 'sendKeys', (name) => `${name} execute sendKeys`);
+decorateBase(BasePage, 'waitForPageState', (name) => `${name} execute waitForPageState`);
 
 module.exports = {
   BasePage

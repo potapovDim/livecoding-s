@@ -15,7 +15,7 @@
     "allure-mocha": "^2.0.0-beta.11",
     "assertior": "0.0.26",
     "mocha": "^9.1.0",
-    "promod": "0.0.21",
+    "promod": "0.0.24",
     "sat-utils": "0.0.18"
   }
 }
