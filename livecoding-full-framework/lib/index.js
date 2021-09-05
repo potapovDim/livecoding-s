@@ -4,4 +4,5 @@ module.exports = {
   ...require('./client'),
   ...require('./elements'),
   ...require('./reporter'),
+  ...require('./test-runner'),
 }

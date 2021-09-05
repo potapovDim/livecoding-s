@@ -2,6 +2,7 @@
 const {provider} = require('../project')
 
 const {client, I} = provider;
+const {it} = provider.testRunner;
 
 describe('Login form', () => {
   const adminData = {password: 'admin', username: 'admin'};

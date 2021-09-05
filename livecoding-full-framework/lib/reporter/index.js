@@ -1,6 +1,6 @@
 // @ts-check
-const {stepAllure} = require('./allure');
-const {stepConsole} = require('./console');
+const {stepAllure, attachFailedApplicationCoditionAllure} = require('./allure');
+const {stepConsole, attachFailedApplicationCoditionConsole} = require('./console');
 
 const {LOG_ALL} = process.env;
 
@@ -46,7 +46,16 @@ function decorateBase(classToDecorate, methodName, messageFn) {
   Object.defineProperty(classToDecorate.prototype, methodName, methodDescriptor)
 }
 
+async function attachFailedApplicationCodition(title) {
+  const {allure} = require('allure-mocha/runtime');
+  if(allure) {
+    return attachFailedApplicationCoditionAllure(title);
+  }
+  return attachFailedApplicationCoditionConsole(title);
+}
+
 module.exports = {
   step,
-  decorateBase
+  decorateBase,
+  attachFailedApplicationCodition
 }

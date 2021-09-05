@@ -1,5 +1,7 @@
 // @ts-check
 const {ContentType} = require('allure-js-commons')
+const {seleniumWD} = require('promod');
+const {browser} = seleniumWD;
 
 function stepAllure(stepName, action, ...args) {
   const {allure} = require('allure-mocha/runtime');
@@ -16,6 +18,19 @@ function stepAllure(stepName, action, ...args) {
   })
 }
 
+function attachFailedApplicationCoditionAllure(stepName) {
+  const {allure} = require('allure-mocha/runtime');
+  return allure.step(stepName, async () => {
+    const currentUrl = await browser.getCurrentUrl();
+    const screenshot = await browser.takeScreenshot();
+    const localStorage = await browser.executeScript('return JSON.stringify(localStorage);');
+    allure.attachment('URL', currentUrl, ContentType.TEXT);
+    allure.attachment('LOCALSTORAGE', localStorage, ContentType.JSON);
+    allure.attachment('FAILED VIEW', Buffer.from(screenshot, 'base64'), ContentType.PNG);
+  });
+}
+
 module.exports = {
   stepAllure,
+  attachFailedApplicationCoditionAllure,
 }

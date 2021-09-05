@@ -1,6 +1,6 @@
 // @ts-check
-const {client} = require('../lib')
-const {I } = require('./flows')
+const {client, it} = require('../lib')
+const {I} = require('./flows')
 
 const provider = {
   get client() {
@@ -8,6 +8,9 @@ const provider = {
   },
   get I() {
     return I
+  },
+  get testRunner() {
+    return {it}
   }
 }
 
