@@ -5,11 +5,11 @@ const {client, I} = provider;
 const {it} = provider.testRunner;
 
 describe('Login form', () => {
-  const adminData = {password: 'admin', username: 'admin'};
-  it.only('[P] Success login', async () => {
+
+  it('[P] Success login', {tags: ['login', 'smoke']}, async ({adminCreds}) => {
     await client.get('http://localhost:4000/')
-    await I.loginToSystem(adminData)
-    await I.checkThatUserLoggedInSystem(adminData.username, true);
+    await I.loginToSystem(adminCreds)
+    await I.checkThatUserLoggedInSystem(adminCreds.username, true);
   })
 
   it('[N] Failed login', async () => {
@@ -20,6 +20,7 @@ describe('Login form', () => {
   })
 
   it('[P] Admin creates new user', async () => {
+    const adminData = {password: 'admin', username: 'admin'};
     await client.get('http://localhost:4000/')
     await I.loginToSystem(adminData)
     await I.navigateToAdmin();
