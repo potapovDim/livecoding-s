@@ -35,7 +35,7 @@ class BaseFragment {
   async click(data) {
     const dataKeys = Object.keys(data)
     for(const key of dataKeys) {
-      await this[key].click();
+      await this[key].click(data[key]);
     }
   }
 
@@ -60,6 +60,17 @@ class BaseFragment {
       getData[key] = await this[key].isDisplayed(data[key]);
     }
     return getData;
+  }
+
+  async isRequiredItem(data) {
+    const dataKeys = Object.keys(data)
+    for(const key of dataKeys) {
+      const result = await this[key].isRequiredItem(data[key]);
+      if(!result) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 

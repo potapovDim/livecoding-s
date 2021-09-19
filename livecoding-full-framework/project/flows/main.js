@@ -1,5 +1,6 @@
 // @ts-check
 const {expect} = require('assertior');
+const {waitForCondition} = require('sat-utils');
 const {pageProvider} = require('../pages/provider');
 
 
@@ -50,8 +51,40 @@ async function checkThatAfterFailedLoginFieldsAreFilled(userData = {}) {
   })
 }
 
+/**
+ *
+ * @param {object} feedbackData
+ * @param {boolean} [feedbackData.open] open
+ * @param {boolean} [feedbackData.refresh] refresh
+ * @param {string} [feedbackData.username] username
+ * @param {string} [feedbackData.content] content
+ * @param {boolean} [feedbackData.send] send
+ */
+async function sendFeedbackToAdmin({open = true, send = true, refresh = false, ...messageData}) {
+  if(open) await main.click({footer: {openForm: null}});
+  await main.sendKeys({feedbackForm: messageData});
+  if(send) await main.click({feedbackForm: {send: null}});
+  if(refresh) await main.click({feedbackForm: {refresh: null}});
+}
+
+
+/**
+ * @param {object} data
+ * @param {boolean} [data.refresh]
+ * @param {string} data.content
+ */
+async function checkThatAdminAnswerOnMyMessage({refresh, content}) {
+  if(refresh) await main.click({feedbackForm: {refresh: null}});
+  await waitForCondition(async () => {
+    const {feedbackForm} = await main.get({feedbackForm: {adminMessages: {action: {content: null}}}});
+    return feedbackForm.adminMessages.some((item) => item.content === content)
+  }, {message: 'Admin did not answer'});
+}
+
 module.exports = {
   loginToSystem,
   registerInSystem,
   checkThatAfterFailedLoginFieldsAreFilled,
+  sendFeedbackToAdmin,
+  checkThatAdminAnswerOnMyMessage,
 }

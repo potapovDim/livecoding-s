@@ -26,6 +26,11 @@ class BaseElement {
   async isDisplayed() {
     return this.root.isDisplayed()
   }
+
+  async isRequiredItem({_element}) {
+    const thisContent = await this.get();
+    return thisContent.includes(_element);
+  }
 }
 
 decorateBase(BaseElement, 'get', (name) => `${name} execute get`);

@@ -35,6 +35,20 @@ class Collection {
   }
 
   /**
+   * @param {object} data data
+   * @param {number} [data.index] index
+   * @param {any} [data.action] index
+   * @returns
+   */
+  async click({index, action, ...rest} = {}) {
+    if(isNumber(index)) {
+      return new this.childItem(this.rootEls.get(index), `${this.name} ${index}`).click(action)
+    } else if(Object.keys(rest).length) {
+      return (await this.findChild(rest)).click(action)
+    }
+  }
+
+  /**
    * @private
    */
   async findChild(itemDesciptor) {
